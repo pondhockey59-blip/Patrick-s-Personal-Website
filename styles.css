@@ -1,0 +1,1438 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Chicago-inspired color palette - extracted from typical Chicago photography */
+    /* Deep blues from Lake Michigan and skyline */
+    --chicago-deep-blue: #0a2540;
+    --chicago-blue: #1a4d7a;
+    --chicago-light-blue: #2d7fc1;
+    /* Warm oranges/reds from sunsets */
+    --chicago-sunset-orange: #ff6b35;
+    --chicago-sunset-red: #d63031;
+    --chicago-warm-orange: #ff8c42;
+    /* Grays from architecture */
+    --chicago-steel-gray: #4a5568;
+    --chicago-concrete: #718096;
+    --chicago-light-gray: #e2e8f0;
+    /* Accent colors */
+    --chicago-gold: #f6ad55;
+    --chicago-white: #ffffff;
+    --chicago-black: #1a202c;
+    
+    /* Primary Colors */
+    --primary-color: var(--chicago-deep-blue);
+    --secondary-color: var(--chicago-sunset-orange);
+    --accent-color: var(--chicago-light-blue);
+    --text-primary: var(--chicago-black);
+    --text-secondary: var(--chicago-steel-gray);
+    --bg-primary: var(--chicago-white);
+    --bg-secondary: #f7fafc;
+    --bg-dark: var(--chicago-black);
+    --border-color: var(--chicago-light-gray);
+    --shadow: 0 4px 6px -1px rgba(10, 37, 64, 0.1), 0 2px 4px -1px rgba(10, 37, 64, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(10, 37, 64, 0.1), 0 4px 6px -2px rgba(10, 37, 64, 0.05);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Navigation */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--chicago-deep-blue);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-brand i {
+    color: var(--chicago-sunset-orange);
+}
+
+/* Removed city-icon-nav */
+
+.nav-menu a i {
+    margin-right: 0.5rem;
+    color: var(--chicago-light-blue);
+    transition: color 0.3s ease;
+}
+
+.nav-menu a:hover i {
+    color: var(--chicago-sunset-orange);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-menu a:hover {
+    color: var(--chicago-sunset-orange);
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--chicago-sunset-orange), var(--chicago-light-blue));
+    transition: width 0.3s ease;
+}
+
+.nav-menu a:hover::after {
+    width: 100%;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    position: relative;
+    padding-top: 80px;
+    overflow: hidden;
+}
+
+.hero-background-gif {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    /* Ensure GIF plays continuously - no animation pause */
+    animation: none;
+    image-rendering: auto;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(10, 37, 64, 0.75) 0%,
+        rgba(26, 77, 122, 0.65) 50%,
+        rgba(214, 48, 49, 0.6) 100%
+    );
+    z-index: 1;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Chicago Skyline - Detailed CSS Drawing */
+.chicago-skyline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 0 5%;
+    opacity: 0.9;
+}
+
+.skyline-building {
+    background: var(--chicago-black);
+    position: relative;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Building Windows Pattern */
+.skyline-building::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.1) 0px,
+            rgba(255, 255, 255, 0.1) 2px,
+            transparent 2px,
+            transparent 8px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.1) 0px,
+            rgba(255, 255, 255, 0.1) 2px,
+            transparent 2px,
+            transparent 8px
+        );
+    opacity: 0.3;
+}
+
+/* Individual Buildings with varying heights */
+.building-1 {
+    width: 4%;
+    height: 120px;
+    border-radius: 2px 2px 0 0;
+}
+
+.building-2 {
+    width: 5%;
+    height: 180px;
+    border-radius: 2px 2px 0 0;
+}
+
+.building-3 {
+    width: 6%;
+    height: 220px;
+    border-radius: 2px 2px 0 0;
+}
+
+.building-4 {
+    width: 7%;
+    height: 280px;
+    border-radius: 2px 2px 0 0;
+}
+
+.building-5 {
+    width: 8%;
+    height: 250px;
+    border-radius: 2px 2px 0 0;
+}
+
+.building-6 {
+    width: 7%;
+    height: 200px;
+    border-radius: 2px 2px 0 0;
+}
+
+.building-7 {
+    width: 6%;
+    height: 160px;
+    border-radius: 2px 2px 0 0;
+}
+
+.building-8 {
+    width: 5%;
+    height: 190px;
+    border-radius: 2px 2px 0 0;
+}
+
+.building-9 {
+    width: 4%;
+    height: 140px;
+    border-radius: 2px 2px 0 0;
+}
+
+.building-10 {
+    width: 5%;
+    height: 170px;
+    border-radius: 2px 2px 0 0;
+}
+
+/* Spire/antenna on taller buildings */
+.building-4::after,
+.building-5::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 15px;
+    background: var(--chicago-black);
+}
+
+.building-4::after {
+    height: 20px;
+}
+
+/* Removed hero-city-icon */
+
+.hero-content i {
+    margin-right: 0.5rem;
+    opacity: 0.9;
+}
+
+.hero-content {
+    animation: fadeInUp 1s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    animation: fadeInUp 1s ease 0.2s both;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.95;
+    animation: fadeInUp 1s ease 0.4s both;
+}
+
+.hero-role {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+    animation: fadeInUp 1s ease 0.6s both;
+}
+
+.hero-location {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.85;
+    animation: fadeInUp 1s ease 0.8s both;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 1s ease 1s both;
+}
+
+.btn {
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: var(--chicago-white);
+    color: var(--chicago-deep-blue);
+    font-weight: 700;
+    border: 2px solid var(--chicago-white);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    background: var(--chicago-sunset-orange);
+    color: var(--chicago-white);
+    border-color: var(--chicago-sunset-orange);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--chicago-sunset-orange);
+    color: var(--chicago-white);
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    animation: bounce 2s infinite;
+    z-index: 2;
+}
+
+.scroll-indicator span {
+    display: block;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.arrow {
+    width: 2px;
+    height: 30px;
+    background: white;
+    margin: 0 auto;
+    position: relative;
+}
+
+.arrow::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -4px;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(45deg);
+}
+
+/* Section Styles */
+section {
+    padding: 5rem 0;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--chicago-sunset-orange), var(--chicago-light-blue));
+    border-radius: 2px;
+}
+
+/* About Section */
+.about {
+    background: var(--bg-secondary);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative Images */
+.about-image-decoration {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.decorative-image {
+    position: absolute;
+    width: 180px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.image-1 {
+    top: 10%;
+    right: 10%;
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.image-2 {
+    bottom: 20%;
+    right: 5%;
+    width: 180px;
+    height: 120px;
+    object-fit: cover;
+}
+
+/* City Buildings Decoration - CSS Sketch */
+.city-buildings-decoration {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    opacity: 0.08;
+    z-index: 0;
+    background-image: 
+        /* Building sketch 1 */
+        linear-gradient(to bottom, var(--chicago-steel-gray) 0%, var(--chicago-steel-gray) 150px, transparent 150px),
+        /* Building sketch 2 */
+        linear-gradient(to bottom, var(--chicago-steel-gray) 0%, var(--chicago-steel-gray) 200px, transparent 200px),
+        /* Building sketch 3 */
+        linear-gradient(to bottom, var(--chicago-steel-gray) 0%, var(--chicago-steel-gray) 180px, transparent 180px);
+    background-size: 
+        60px 100%,
+        80px 100%,
+        70px 100%;
+    background-position: 
+        20px top,
+        100px top,
+        180px top;
+    background-repeat: no-repeat;
+}
+
+.about-icon-wrapper {
+    font-size: 3rem;
+    color: var(--chicago-sunset-orange);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.about .section-title i {
+    color: var(--chicago-sunset-orange);
+    margin-right: 0.5rem;
+}
+
+.card-icon-wrapper {
+    font-size: 2.5rem;
+    color: var(--chicago-light-blue);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.detail-card i {
+    color: var(--chicago-sunset-orange);
+    margin-right: 0.5rem;
+}
+
+.detail-card h3 i {
+    color: var(--chicago-deep-blue);
+}
+
+.about-content {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.about .container {
+    position: relative;
+    z-index: 1;
+}
+
+.about-text {
+    margin-bottom: 3rem;
+}
+
+.lead {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.about-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.detail-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.detail-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.detail-card h3 {
+    color: var(--chicago-deep-blue);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.detail-card ul {
+    list-style: none;
+}
+
+.detail-card li {
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.detail-card li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--chicago-sunset-orange);
+}
+
+/* Experience Section */
+.experience {
+    position: relative;
+    overflow: hidden;
+}
+
+.experience-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('download.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: 0;
+}
+
+/* City Timeline Decoration */
+.city-timeline-decoration {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    opacity: 0.1;
+    z-index: 1;
+    background-image: 
+        /* Vertical building lines */
+        linear-gradient(to bottom, var(--chicago-black) 0%, var(--chicago-black) 100%),
+        linear-gradient(to bottom, var(--chicago-black) 0%, var(--chicago-black) 100%),
+        linear-gradient(to bottom, var(--chicago-black) 0%, var(--chicago-black) 100%);
+    background-size: 
+        3px 100%,
+        3px 100%,
+        3px 100%;
+    background-position: 
+        30px top,
+        60px top,
+        90px top;
+    background-repeat: no-repeat;
+}
+
+.experience .section-title i {
+    color: var(--chicago-sunset-orange);
+    margin-right: 0.5rem;
+}
+
+.timeline-marker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: white;
+}
+
+.timeline-header h3 i {
+    color: var(--chicago-sunset-orange);
+    margin-right: 0.5rem;
+}
+
+.timeline-header .company i,
+.timeline-header .duration i,
+.timeline-header .location i {
+    color: var(--chicago-light-blue);
+    margin-right: 0.5rem;
+}
+
+.section-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(247, 250, 252, 0.95);
+    z-index: 1;
+}
+
+.experience .container {
+    position: relative;
+    z-index: 2;
+}
+
+.timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    z-index: 2;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border-color);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -2.5rem;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--chicago-sunset-orange);
+    border: 4px solid white;
+    box-shadow: 0 0 0 4px var(--border-color);
+}
+
+.timeline-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateX(10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.timeline-header h3 {
+    color: var(--chicago-deep-blue);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-header .company {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.timeline-header .duration,
+.timeline-header .location {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.timeline-description {
+    margin-top: 1.5rem;
+    list-style: none;
+}
+
+.timeline-description li {
+    padding: 0.75rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.timeline-description li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--chicago-sunset-orange);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Education Section */
+.education {
+    background: var(--bg-secondary);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Education City Decoration */
+.education-city-decoration {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    opacity: 0.06;
+    z-index: 0;
+    background-image: 
+        /* Building silhouettes */
+        linear-gradient(to top, var(--chicago-steel-gray) 0%, var(--chicago-steel-gray) 100px, transparent 100px),
+        linear-gradient(to top, var(--chicago-steel-gray) 0%, var(--chicago-steel-gray) 120px, transparent 120px),
+        linear-gradient(to top, var(--chicago-steel-gray) 0%, var(--chicago-steel-gray) 90px, transparent 90px),
+        linear-gradient(to top, var(--chicago-steel-gray) 0%, var(--chicago-steel-gray) 110px, transparent 110px);
+    background-size: 
+        10% 100%,
+        12% 100%,
+        9% 100%,
+        11% 100%;
+    background-position: 
+        10% bottom,
+        35% bottom,
+        60% bottom,
+        85% bottom;
+    background-repeat: no-repeat;
+}
+
+.education .section-title i {
+    color: var(--chicago-sunset-orange);
+    margin-right: 0.5rem;
+}
+
+.edu-icon-large {
+    font-size: 3rem;
+    color: var(--chicago-light-blue);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.education-card i {
+    color: var(--chicago-sunset-orange);
+    margin-right: 0.5rem;
+}
+
+.education-card h3 i {
+    color: var(--chicago-deep-blue);
+}
+
+.education-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.education .container {
+    position: relative;
+    z-index: 1;
+}
+
+.education-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.education-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.education-card h3 {
+    color: var(--chicago-deep-blue);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.degree {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.period {
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.skills-tag,
+.grade,
+.activities {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Skills Section */
+.skills {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Skills City Decoration */
+.skills-city-decoration {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 250px;
+    height: 300px;
+    transform: translateY(-50%);
+    opacity: 0.05;
+    z-index: 0;
+    background-image: 
+        /* City grid pattern */
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 20px,
+            var(--chicago-steel-gray) 20px,
+            var(--chicago-steel-gray) 21px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 20px,
+            var(--chicago-steel-gray) 20px,
+            var(--chicago-steel-gray) 21px
+        );
+}
+
+.skills .section-title i {
+    color: var(--chicago-sunset-orange);
+    margin-right: 0.5rem;
+}
+
+.skill-icon-header {
+    font-size: 2.5rem;
+    color: var(--chicago-light-blue);
+    margin-bottom: 1rem;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.skill-category h3 i {
+    color: var(--chicago-sunset-orange);
+    margin-right: 0.5rem;
+}
+
+.skill-tag i {
+    margin-right: 0.5rem;
+    color: var(--chicago-light-blue);
+}
+
+.skill-tag:hover i {
+    color: white;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.skill-category h3 {
+    color: var(--chicago-deep-blue);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.skill-tag {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.skill-tag:hover {
+    background: var(--chicago-sunset-orange);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: var(--chicago-sunset-orange);
+}
+
+.skill-tag:nth-child(even):hover {
+    background: var(--chicago-light-blue);
+    border-color: var(--chicago-light-blue);
+}
+
+/* Achievements Section */
+.achievements {
+    background: var(--bg-secondary);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Achievements City Decoration */
+.achievements-city-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    opacity: 0.06;
+    z-index: 0;
+    background-image: 
+        /* Top building line */
+        linear-gradient(to right, var(--chicago-steel-gray) 0%, var(--chicago-steel-gray) 15%, transparent 15%, transparent 25%, var(--chicago-steel-gray) 25%, var(--chicago-steel-gray) 40%, transparent 40%, transparent 50%, var(--chicago-steel-gray) 50%, var(--chicago-steel-gray) 65%, transparent 65%, transparent 75%, var(--chicago-steel-gray) 75%, var(--chicago-steel-gray) 90%, transparent 90%);
+    background-size: 100% 80px;
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+
+.achievements .section-title i {
+    color: var(--chicago-sunset-orange);
+    margin-right: 0.5rem;
+}
+
+.achievement-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--chicago-light-blue);
+}
+
+.achievement-card h3 i {
+    color: var(--chicago-sunset-orange);
+    margin-right: 0.5rem;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.achievements .container {
+    position: relative;
+    z-index: 1;
+}
+
+.achievement-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.achievement-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.achievement-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.achievement-card h3 {
+    color: var(--chicago-deep-blue);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.achievement-card p {
+    color: var(--text-secondary);
+}
+
+/* Contact Section */
+.contact {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-background-gif {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    /* Ensure GIF plays continuously - no animation pause */
+    animation: none;
+    image-rendering: auto;
+}
+
+.contact-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(10, 37, 64, 0.9) 0%,
+        rgba(214, 48, 49, 0.85) 50%,
+        rgba(26, 77, 122, 0.9) 100%
+    );
+    z-index: 1;
+}
+
+.contact .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Contact City Skyline */
+.contact-city-skyline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 180px;
+    z-index: 1;
+    opacity: 0.2;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+}
+
+.contact-city-skyline::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        /* Skyline buildings */
+        linear-gradient(to top, var(--chicago-black) 0%, var(--chicago-black) 70px, transparent 70px),
+        linear-gradient(to top, var(--chicago-black) 0%, var(--chicago-black) 100px, transparent 100px),
+        linear-gradient(to top, var(--chicago-black) 0%, var(--chicago-black) 85px, transparent 85px),
+        linear-gradient(to top, var(--chicago-black) 0%, var(--chicago-black) 110px, transparent 110px),
+        linear-gradient(to top, var(--chicago-black) 0%, var(--chicago-black) 95px, transparent 95px),
+        linear-gradient(to top, var(--chicago-black) 0%, var(--chicago-black) 75px, transparent 75px);
+    background-size: 
+        7% 100%,
+        9% 100%,
+        8% 100%,
+        10% 100%,
+        8% 100%,
+        7% 100%;
+    background-position: 
+        3% bottom,
+        20% bottom,
+        37% bottom,
+        54% bottom,
+        71% bottom,
+        88% bottom;
+    background-repeat: no-repeat;
+}
+
+.contact .section-title i {
+    color: white;
+    margin-right: 0.5rem;
+}
+
+.contact-icon-large {
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    animation: fadeInUp 1s ease;
+}
+
+.contact-item i {
+    color: white;
+}
+
+.contact .section-title {
+    color: white;
+}
+
+.contact .section-title::after {
+    background: white;
+}
+
+.contact-content {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contact-intro {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.contact-icon {
+    font-size: 1.5rem;
+}
+
+/* Additional Icon Styling */
+.section-title i {
+    margin-right: 0.5rem;
+}
+
+/* Building Window Patterns - Additional Detail */
+.detail-card,
+.education-card,
+.achievement-card {
+    position: relative;
+}
+
+.detail-card::before,
+.education-card::before {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    opacity: 0.1;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            var(--chicago-steel-gray) 0px,
+            var(--chicago-steel-gray) 2px,
+            transparent 2px,
+            transparent 8px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            var(--chicago-steel-gray) 0px,
+            var(--chicago-steel-gray) 2px,
+            transparent 2px,
+            transparent 8px
+        );
+    border-radius: 2px;
+}
+
+/* Footer */
+.footer {
+    background: var(--bg-dark);
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Footer City Decoration */
+.footer-city-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    opacity: 0.1;
+    z-index: 0;
+    background-image: 
+        /* Mini skyline */
+        linear-gradient(to right, var(--chicago-white) 0%, var(--chicago-white) 8%, transparent 8%, transparent 18%, var(--chicago-white) 18%, var(--chicago-white) 26%, transparent 26%, transparent 36%, var(--chicago-white) 36%, var(--chicago-white) 44%, transparent 44%, transparent 54%, var(--chicago-white) 54%, var(--chicago-white) 62%, transparent 62%, transparent 72%, var(--chicago-white) 72%, var(--chicago-white) 80%, transparent 80%, transparent 90%, var(--chicago-white) 90%, var(--chicago-white) 98%, transparent 98%);
+    background-size: 100% 50px;
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+
+.footer .container {
+    position: relative;
+    z-index: 1;
+}
+
+.footer-icon {
+    font-size: 2rem;
+    color: var(--chicago-sunset-orange);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.footer-note i {
+    color: var(--chicago-sunset-orange);
+    margin: 0 0.5rem;
+}
+
+.footer-note {
+    margin-top: 0.5rem;
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background: white;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: var(--shadow);
+        padding: 2rem 0;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .timeline {
+        padding-left: 1.5rem;
+    }
+
+    .timeline-marker {
+        left: -1.75rem;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    section {
+        padding: 3rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
